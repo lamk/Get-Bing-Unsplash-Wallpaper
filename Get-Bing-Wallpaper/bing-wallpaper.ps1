@@ -19,11 +19,10 @@ if(Test-Path .\today\*.jpg) {
 }
 
 #change dir
-cd today
 if(!(Test-Path .\jsons)) {
   mkdir jsons
 }
-cd jsons
+cd .\jsons
 
 #get json
 $url = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=10"
@@ -33,7 +32,7 @@ $data.Content | Out-File .\bing.json
 $decode = ConvertFrom-Json($data)
 
 #get jpg
-cd ..
+cd .\..\today
 
 $range = 1..8
 $count = $range.Count
@@ -47,8 +46,8 @@ for($i=0; $i -lt $count; $i++) {
 }
 
 #delete jsons dir
-if(Test-Path .\jsons) {
-  Remove-Item -Recurse ".\jsons\*"
+if(Test-Path .\..\jsons) {
+  Remove-Item -Recurse ".\..\jsons\*"
 }
 
 echo ok!
