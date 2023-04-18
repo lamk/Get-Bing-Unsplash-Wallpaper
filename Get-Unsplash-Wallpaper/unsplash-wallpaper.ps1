@@ -19,17 +19,16 @@ if(Test-Path .\today\*.jpg) {
 }
 
 #change dir
-cd today
 if(!(Test-Path .\jsons)) {
   mkdir jsons
 }
-cd jsons
+cd .\jsons
 
 #get json
 
 #sign up for a free developer account on https://unsplash.com/developers to get API access
 #create an application in the portal and copy the Access Key value to unsplash-access.txt
-$access_key = Get-Content .\..\..\unsplash-access.txt
+$access_key = Get-Content .\..\unsplash-access.txt
 
 $baseUrl = "https://api.unsplash.com/photos/random"
 $collections = "437035,8362253,220381,11649432,58118635"
@@ -46,7 +45,7 @@ $decode = ConvertFrom-Json($data)
 $cmd = "C:\App\NConvert\nconvert.exe"
 
 #get jpg
-cd ..
+cd .\..\today
 for($i=0; $i -lt $count; $i++) {
   $temp = $decode.Get($i)
   $urlsplit = $temp.urls.full
@@ -57,8 +56,8 @@ for($i=0; $i -lt $count; $i++) {
 }
 
 #delete jsons dir
-if(Test-Path .\jsons) {
-  Remove-Item -Recurse ".\jsons\*"
+if(Test-Path .\..\jsons) {
+  Remove-Item -Recurse ".\..\jsons\*"
 }
 
 echo ok!
